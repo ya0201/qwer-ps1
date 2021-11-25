@@ -25,7 +25,7 @@ _qwer_ps1_show_current_core() {
   local fail="$3"
   local name="$4"
 
-  if [[ ! -x "${QWER_PS1_SHIMS}/show-current-${name}" ]]; then
+  if [[ ! -f "${QWER_PS1_SHIMS}/show-current-${name}" ]]; then
     if [[ $fail == 'true' ]]; then
       echo "Error: plugin $name not found." >&2
       return 1
@@ -35,7 +35,7 @@ _qwer_ps1_show_current_core() {
     fi
   fi
 
-  local result="$(${QWER_PS1_SHIMS}/show-current-${name})"
+  local result="$(. ${QWER_PS1_SHIMS}/show-current-${name})"
   if [[ -n "$result" ]]; then
     local left=${brackets:0:1}
     local right=${brackets:1:1}
@@ -105,7 +105,7 @@ _qwer_ps1_plugin_remove() {
 
 _qwer_ps1_plugin_is_installed() {
   local name="$1"
-  [[ -x ${QWER_PS1_SHIMS}/show-current-${name} ]]
+  [[ -f ${QWER_PS1_SHIMS}/show-current-${name} ]]
 }
 
 _qwer_ps1_plugin() {
