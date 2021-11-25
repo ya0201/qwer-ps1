@@ -72,7 +72,7 @@ _qwer_ps1_plugin_add() {
 }
 
 _qwer_ps1_plugin_list() {
-  ls ${QWER_PS1_SHIMS}/show-current-* | tr ' ' '\n' | sed 's;.*show-current-;;'
+  find ${QWER_PS1_SHIMS} -name show-current-* | tr ' ' '\n' | sed 's;.*show-current-;;'
 }
 
 _qwer_ps1_plugin_update() {
