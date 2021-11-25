@@ -1,5 +1,5 @@
 # qwer-ps1
-This is too simple, highly extendable manager for your $PROMPT. Inspired by [asdf](https://github.com/asdf-vm/asdf).
+This is too simple, highly extendable manager for your $PROMPT of zsh. Inspired by [asdf](https://github.com/asdf-vm/asdf).
 
 ## requirements
 - zsh
