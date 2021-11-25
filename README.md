@@ -37,8 +37,8 @@ if ! qp1 p ii oscloud; then
 fi
 PROMPT='$(qp1 s oscloud) '${PROMPT}
 ```
-then it appears like this :arrow_down:
-[picture here]
+then it appears like this :arrow_down:  
+<img width="362" alt="スクリーンショット 2021-11-25 23 00 29" src="https://user-images.githubusercontent.com/23146443/143455675-6767ad51-c26f-4f04-a568-eadb63a76b77.png">
 
   
   
@@ -51,4 +51,4 @@ fi
 - PROMPT='$(qp1 s oscloud) '${PROMPT}
 + PROMPT='$(qp1 -b {} -c yellow s oscloud) '${PROMPT}
 ```
-[picture here]
+<img width="368" alt="スクリーンショット 2021-11-25 23 02 50" src="https://user-images.githubusercontent.com/23146443/143455711-61c73273-01c7-47a2-9bf5-d6517f2d54d9.png">
