@@ -6,12 +6,13 @@ mkdir -p ${QWER_PS1_PLUGINS}
 
 
 _qwer_ps1_usage() {
-  echo "usage:   qwer-ps1 <options> show-current <name>" >&2
-  echo "         qwer-ps1           plugin add <name> <url>" >&2
-  echo "         qwer-ps1           plugin list" >&2
-  echo "         qwer-ps1           plugin update <name>" >&2
+  echo "usage:   qwer-ps1 <options> show-current <name>        -- show current value of <name>" >&2
+  echo "         qwer-ps1           plugin add <name> <url>    -- add plugin" >&2
+  echo "         qwer-ps1           plugin list                -- list all installed plugin" >&2
+  echo "         qwer-ps1           plugin update <name>       -- update plugin" >&2
   # echo "         qwer-ps1           plugin update (--all)" >&2
-  echo "         qwer-ps1           plugin remove <name>" >&2
+  echo "         qwer-ps1           plugin remove <name>       -- remove plugin" >&2
+  echo "         qwer-ps1           plugin is-installed <name> -- check whether the plugin is installed" >&2
   echo "" >&2
   echo "options: -b <brackets pair (default: '[]')> -- brackets you want to use" >&2
   echo "         -c <color (default: 'red')>        -- color you want to use" >&2
@@ -102,6 +103,11 @@ _qwer_ps1_plugin_remove() {
   fi
 }
 
+_qwer_ps1_plugin_is_installed() {
+  local name="$1"
+  [[ -x ${QWER_PS1_SHIMS}/show-current-${name} ]]
+}
+
 _qwer_ps1_plugin() {
   local subcmd="$1"
   shift
@@ -118,6 +124,9 @@ _qwer_ps1_plugin() {
       ;;
     remove | r)
       _qwer_ps1_plugin_remove "$@"
+      ;;
+    is-installed | ii)
+      _qwer_ps1_plugin_is_installed "$@"
       ;;
     *)
       echo "Error: unknown subcommand '$subcmd' specified" >&2
