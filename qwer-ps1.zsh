@@ -13,6 +13,7 @@ _qwer_ps1_usage() {
   # echo "         qwer-ps1           plugin update (--all)" >&2
   echo "         qwer-ps1           plugin remove <name>       -- remove plugin" >&2
   echo "         qwer-ps1           plugin is-installed <name> -- check whether the plugin is installed" >&2
+  echo "         qwer-ps1           init                       -- function to initialize qwer-ps1" >&2
   echo "" >&2
   echo "options: -b <brackets pair (default: '[]')> -- brackets you want to use" >&2
   echo "         -c <color (default: 'red')>        -- color you want to use" >&2
@@ -53,11 +54,7 @@ _qwer_ps1_show_current_core() {
 # wrap _qwer_ps1_show_current_core for lazy loading
 _qwer_ps1_show_current() {
   if [[ "$QWER_PS1_LAZY_LOADING" == 'true' ]]; then
-    ## lazy loading
-    unset -f _qwer_ps1_show_current
-    _qwer_ps1_show_current() {
-      _qwer_ps1_show_current_core "$@"
-    }
+    :
   else
     _qwer_ps1_show_current_core "$@"
   fi
@@ -135,12 +132,27 @@ _qwer_ps1_plugin() {
   esac
 }
 
+_qwer_ps1_init() {
+  cat <<EOS
+if which add-zsh-hook &>/dev/null && [[ $QWER_PS1_LAZY_LOADING == 'true' ]]; then
+  _qwer_init_precmd_tmp() {
+    unset _qwer_init_precmd_tmp
+    _qwer_init_precmd_tmp() {
+      QWER_PS1_LAZY_LOADING='false'
+      add-zsh-hook -d precmd _qwer_init_precmd_tmp
+    }
+  }
+  add-zsh-hook precmd _qwer_init_precmd_tmp
+fi
+EOS
+}
+
 qp1() {
   qwer-ps1 "$@"
 }
 
 qwer-ps1() {
-  if [[ $# -lt 2 ]]; then
+  if [[ $# -lt 1 ]]; then
     _qwer_ps1_usage
     return 1
   fi
@@ -182,6 +194,9 @@ qwer-ps1() {
       ;;
     plugin | p)
       _qwer_ps1_plugin "$@"
+      ;;
+    init)
+      _qwer_ps1_init
       ;;
     *)
       echo "Error: unknown subcommand '$subcmd' specified" >&2

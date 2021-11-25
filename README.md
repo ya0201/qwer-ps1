@@ -9,6 +9,7 @@ This is too simple, highly extendable manager for your $PROMPT of zsh. Inspired 
 ```shell
 git clone https://github.com/ya0201/qwer-ps1 /path/you/want/to/clone
 echo "source /path/to/qwer-ps1.zsh" >> ${HOME}/.zshrc
+echo 'eval "$(qwer-ps1 init)"' >> ${HOME}/.zshrc
 ```
 
 ## usage
