@@ -29,7 +29,7 @@ PROMPT=${PROMPT}'$(qp1 s oscloud)'
 ```
 
 ## customize
-By default, qwer-ps1 use '[]' and red. So, if you write like this :down:
+By default, qwer-ps1 use '[]' and red. So, if you write like this :arrow_down:
 ```shell
 source /path/to/qwer-ps1.zsh
 if ! qp1 p ii oscloud; then
@@ -37,7 +37,7 @@ if ! qp1 p ii oscloud; then
 fi
 PROMPT='$(qp1 s oscloud) '${PROMPT}
 ```
-then it appears like this :down:
+then it appears like this :arrow_down:
 [picture here]
 
   
