@@ -68,7 +68,7 @@ _qwer_ps1_plugin_add() {
   local url="$2"
 
   git clone $url ${QWER_PS1_PLUGINS}/${name}
-  ln -s ${QWER_PS1_PLUGINS}/${name}/bin/show-current ${QWER_PS1_SHIMS}/show-current-${name}
+  ln -s ${QWER_PS1_PLUGINS}/${name}/src/show-current ${QWER_PS1_SHIMS}/show-current-${name}
 }
 
 _qwer_ps1_plugin_list() {
