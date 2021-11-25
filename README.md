@@ -5,12 +5,14 @@ This is too simple, highly extendable manager for your $PROMPT. Inspired by [asd
 - zsh
 - git
 
-## usage
+## install
 ```shell
-# install qwer-ps1 itself
 git clone https://github.com/ya0201/qwer-ps1 /path/you/want/to/clone
 echo "source /path/to/qwer-ps1.zsh" >> ${HOME}/.zshrc
+```
 
+## usage
+```shell
 # add plugin
 qwer-ps1 plugin add oscloud https://github.com/ya0201/qwer-ps1-oscloud
 
