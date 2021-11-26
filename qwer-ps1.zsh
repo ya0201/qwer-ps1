@@ -89,7 +89,7 @@ _qwer_ps1_plugin_link() {
 }
 
 _qwer_ps1_plugin_list() {
-  find ${QWER_PS1_SHIMS} -name show-current-* | tr ' ' '\n' | sed 's;.*show-current-;;'
+  find ${QWER_PS1_SHIMS} -name 'show-current-*' | tr ' ' '\n' | sed 's;.*show-current-;;'
 }
 
 _qwer_ps1_plugin_update() {
@@ -167,6 +167,9 @@ if which add-zsh-hook &>/dev/null && [[ $QWER_PS1_LAZY_LOADING == 'true' ]]; the
   add-zsh-hook precmd _qwer_init_precmd_tmp
 fi
 EOS
+  for f in $(find $QWER_PS1_SHIMS -name 'init-*'); do
+    cat $f
+  done
 }
 
 qp1() {
