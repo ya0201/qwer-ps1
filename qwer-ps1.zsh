@@ -17,7 +17,7 @@ _qwer_ps1_usage() {
   echo "" >&2
   echo "options: -b <brackets pair (default: '[]')> -- brackets you want to use" >&2
   echo "         -c <color (default: 'red')>        -- color you want to use" >&2
-  echo "         -f (default: 'false')              -- fails if plugin not found or returned empty string" >&2
+  echo "         -f                                 -- fails if plugin not found or returned empty string" >&2
 }
 
 _qwer_ps1_show_current_core() {
