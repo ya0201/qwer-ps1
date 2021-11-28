@@ -13,7 +13,7 @@ _qwer_ps1_usage() {
   # echo "         qwer-ps1           plugin update (--all)" >&2
   echo "         qwer-ps1           plugin remove <name>       -- remove plugin" >&2
   echo "         qwer-ps1           plugin is-installed <name> -- check whether the plugin is installed" >&2
-  echo "         qwer-ps1           init                       -- function to initialize qwer-ps1" >&2
+  echo "         qwer-ps1           init                       -- function to initialize qwer-ps1 and plugins" >&2
   echo "" >&2
   echo "options: -b <brackets pair (default: '[]')> -- brackets you want to use" >&2
   echo "         -c <color (default: 'red')>        -- color you want to use" >&2
@@ -65,11 +65,31 @@ _qwer_ps1_plugin_add() {
   local url="$2"
 
   git clone $url ${QWER_PS1_PLUGINS}/${name}
-  ln -s ${QWER_PS1_PLUGINS}/${name}/src/show-current ${QWER_PS1_SHIMS}/show-current-${name}
+  echo
+  if [[ ! -f ${QWER_PS1_PLUGINS}/${name}/src/show-current ]]; then
+    echo "${QWER_PS1_PLUGINS}/${name}/src/show-current not found. Invalid qwer-ps1 plugin..." >&2
+    return 1
+  fi
+
+  _qwer_ps1_plugin_link $name
+}
+
+_qwer_ps1_plugin_link() {
+  local name="$1"
+
+  if [[ ! -f ${QWER_PS1_SHIMS}/show-current-${name} ]]; then
+    echo "Linking ${QWER_PS1_PLUGINS}/${name}/src/show-current ..."
+    ln -s ${QWER_PS1_PLUGINS}/${name}/src/show-current ${QWER_PS1_SHIMS}/show-current-${name}
+  fi
+
+  if [[ -f ${QWER_PS1_PLUGINS}/${name}/src/init && ! -f ${QWER_PS1_SHIMS}/init-${name} ]]; then
+    echo "Linking ${QWER_PS1_PLUGINS}/${name}/src/init ..."
+    ln -s ${QWER_PS1_PLUGINS}/${name}/src/init ${QWER_PS1_SHIMS}/init-${name}
+  fi
 }
 
 _qwer_ps1_plugin_list() {
-  find ${QWER_PS1_SHIMS} -name show-current-* | tr ' ' '\n' | sed 's;.*show-current-;;'
+  find ${QWER_PS1_SHIMS} -name 'show-current-*' | tr ' ' '\n' | sed 's;.*show-current-;;'
 }
 
 _qwer_ps1_plugin_update() {
@@ -78,6 +98,8 @@ _qwer_ps1_plugin_update() {
   if [[ -d ${QWER_PS1_PLUGINS}/${name} ]]; then
     pushd ${QWER_PS1_PLUGINS}/${name}
     git pull
+    echo
+    _qwer_ps1_plugin_link $name
     popd
   else
     echo "Plugin $name not installed." >&2
@@ -145,6 +167,7 @@ if which add-zsh-hook &>/dev/null && [[ $QWER_PS1_LAZY_LOADING == 'true' ]]; the
   add-zsh-hook precmd _qwer_init_precmd_tmp
 fi
 EOS
+  find $QWER_PS1_SHIMS -name 'init-*' | xargs cat
 }
 
 qp1() {
