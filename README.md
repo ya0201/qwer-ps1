@@ -31,6 +31,8 @@ fi
 PROMPT=${PROMPT}'$(qp1 s oscloud)'
 ```
 
+If you want to know more detail, see [wiki](https://github.com/ya0201/qwer-ps1/wiki)!
+
 ## customize
 By default, qwer-ps1 use '[]' and red. So, if you write like this :arrow_down:
 ```shell
