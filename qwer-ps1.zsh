@@ -167,9 +167,7 @@ if which add-zsh-hook &>/dev/null && [[ $QWER_PS1_LAZY_LOADING == 'true' ]]; the
   add-zsh-hook precmd _qwer_init_precmd_tmp
 fi
 EOS
-  for f in $(find $QWER_PS1_SHIMS -name 'init-*'); do
-    cat $f
-  done
+  find $QWER_PS1_SHIMS -name 'init-*' | xargs cat
 }
 
 qp1() {
