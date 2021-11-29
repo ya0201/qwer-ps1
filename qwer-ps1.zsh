@@ -40,7 +40,7 @@ _qwer_ps1_show_current_core() {
   if [[ -n "$result" ]]; then
     local left=${brackets:0:1}
     local right=${brackets:1:1}
-    echo "%F{$color}${left}${result}${right}%f"
+    echo "%F{$color}${left}%f%F{$color}${result}%f%F{$color}${right}%f"
     return 0
   elif [[ $fail == 'true' ]]; then
     echo "Error: could not show current $name value." >&2
