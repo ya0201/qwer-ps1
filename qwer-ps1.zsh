@@ -115,7 +115,7 @@ _qwer_ps1_plugin_remove() {
     return 1
   elif [[ -d ${QWER_PS1_PLUGINS}/${name} ]]; then
     unlink ${QWER_PS1_SHIMS}/show-current-${name}
-    unlink ${QWER_PS1_SHIMS}/init-${name}
+    [[ -f ${QWER_PS1_SHIMS}/init-${name} ]] && unlink ${QWER_PS1_SHIMS}/init-${name}
     rm -rf ${QWER_PS1_PLUGINS}/${name}
   else
     echo "Plugin $name not installed." >&2
